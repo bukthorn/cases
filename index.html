@@ -504,6 +504,57 @@
       margin-top: 0;
     }
 
+
+    .artifact-block {
+      margin-top: 26px;
+      padding: 22px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      background: var(--bg);
+    }
+
+    .artifact-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 28px;
+      margin-bottom: 18px;
+    }
+
+    .artifact-head h5 {
+      margin: 0;
+      color: var(--text);
+      font-size: 20px;
+      font-weight: 850;
+      letter-spacing: -0.03em;
+      line-height: 1.2;
+    }
+
+    .artifact-head p {
+      max-width: 720px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    .artifact-visual {
+      overflow-x: auto;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: var(--surface);
+      box-shadow: var(--shadow-soft);
+      scrollbar-width: thin;
+    }
+
+    .artifact-visual img {
+      display: block;
+      width: 100%;
+      min-width: 980px;
+      height: auto;
+    }
+
     .flow {
       padding: 22px;
       border: 1px solid var(--line);
@@ -938,6 +989,19 @@
     }
 
     @media (max-width: 720px) {
+      .artifact-head {
+        display: grid;
+        gap: 10px;
+      }
+
+      .artifact-head p {
+        max-width: none;
+      }
+
+      .artifact-visual img {
+        min-width: 820px;
+      }
+
       h1 {
         font-size: clamp(40px, 13vw, 56px);
       }
@@ -1111,11 +1175,16 @@
             <div class="case-section-head full-width">
               <div>
                 <div class="section-kicker">Artifacts</div>
-                <h4>Workflow map: before and after</h4>
+                <h4>Key redesign artifacts</h4>
               </div>
             </div>
 
-            <div class="flow-wrap">
+            <div class="artifact-block">
+              <div class="artifact-head">
+                <h5>Workflow map: before and after</h5>
+                <p>Shows the difference between the original import flow, where problems were discovered after analysis, and the redesigned flow with an explicit validation step before import completion.</p>
+              </div>
+              <div class="flow-wrap">
               <div class="flow">
                 <div class="flow-label">
                   <span>Before</span>
@@ -1160,6 +1229,16 @@
                     <div class="workflow-node success">Continue with safer data</div>
                   </div>
                 </div>
+              </div>
+            </div>
+
+            <div class="artifact-block">
+              <div class="artifact-head">
+                <h5>Decision map for validation logic</h5>
+                <p>Maps how coordinate data, elevation values, and reference-mode choices should be interpreted during import. The diagram helped define when the system should calculate values automatically, when it should warn users about inconsistent data, and which configurations should require additional validation before import completion.</p>
+              </div>
+              <div class="artifact-visual">
+                <img src="assets/decision-map.svg" alt="Decision map showing validation logic for coordinate, elevation, and reference-mode data during import" />
               </div>
             </div>
           </div>
