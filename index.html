@@ -488,40 +488,6 @@
       background: var(--bg);
     }
 
-    .artifact-columns {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 26px;
-      margin-top: 26px;
-      align-items: stretch;
-    }
-
-    .artifact-columns .artifact-block {
-      display: flex;
-      flex-direction: column;
-      margin-top: 0;
-      min-height: 100%;
-    }
-
-    .artifact-columns .artifact-head {
-      min-height: 156px;
-    }
-
-    .artifact-columns .artifact-visual {
-      flex: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 420px;
-    }
-
-    .artifact-columns .artifact-visual img {
-      width: 100%;
-      min-width: 0;
-      max-height: 520px;
-      object-fit: contain;
-    }
-
     .artifact-head {
       display: block;
       margin-bottom: 18px;
@@ -917,18 +883,6 @@
         grid-template-columns: 1fr;
       }
 
-      .artifact-columns {
-        grid-template-columns: 1fr;
-      }
-
-      .artifact-columns .artifact-head {
-        min-height: 0;
-      }
-
-      .artifact-columns .artifact-visual {
-        min-height: 0;
-      }
-
       .nav-links {
         display: none;
       }
@@ -1206,8 +1160,7 @@
             </div>
           </div>
 
-          <div class="artifact-columns">
-            <div class="artifact-block">
+          <div class="artifact-block">
             <div class="artifact-head">
               <h5>Decision map for validation logic</h5>
                 <p>Maps how coordinate data, elevation values, and reference-mode choices should be interpreted during import. The diagram helped define when the system should calculate values automatically, when it should warn users about inconsistent data, and which configurations should require additional validation before import completion.</p>
@@ -1226,8 +1179,6 @@
                 <img src="assets/problem-to-solution-roadmap.svg" alt="Problem-to-solution roadmap showing how recurring import issues were decomposed into product improvements and expected outcomes" />
               </div>
             </div>
-          </div>
-
           </div>
 
           <div class="case-section">
