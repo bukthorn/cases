@@ -714,27 +714,9 @@
       line-height: 1.8;
     }
 
-    .outcome {
-      display: block;
-      padding: 42px;
-      border-radius: 34px;
-      background: var(--accent);
-      color: white;
-    }
-
-    .outcome .section-kicker, .outcome .section-text {
-      color: rgba(255, 255, 255, 0.68);
-    }
-
-    .outcome h2 {
-      color: white;
-      font-size: clamp(24px, 2.2vw, 30px);
-      line-height: 1.16;
-      letter-spacing: -0.035em;
-    }
-
     .outcome-list {
       display: grid;
+      grid-template-columns: repeat(3, 1fr);
       gap: 14px;
       margin: 0;
       padding: 0;
@@ -742,11 +724,15 @@
     }
 
     .outcome-list li {
-      padding: 18px;
+      min-height: auto;
+      padding: 18px 20px;
       border: 1px solid rgba(255,255,255,0.15);
-      border-radius: 20px;
-      background: rgba(255,255,255,0.07);
-      color: rgba(255,255,255,0.82);
+      border-radius: 22px;
+      background: var(--accent);
+      color: rgba(255,255,255,0.88);
+      box-shadow: var(--shadow-soft);
+      font-size: 15px;
+      line-height: 1.55;
     }
 
 
@@ -901,8 +887,8 @@
       .two-col,
       .section-head,
       .case-section-head,
-      .outcome,
-      .contact-card {
+      .contact-card,
+      .outcome-list {
         grid-template-columns: 1fr;
       }
 
@@ -976,7 +962,6 @@
       }
 
       .case-card,
-      .outcome,
       .contact-card {
         padding: 24px;
       }
@@ -1198,14 +1183,11 @@
                 <h4>Safer import logic and fewer repeated support issues</h4>
               </div>
             </div>
-
-            <div class="outcome">
-              <ul class="outcome-list">
-                <li>The workflow became clearer for users working with high-risk spatial data import.</li>
-                <li>Support requests related to this workflow decreased by 20% after the changes were released.</li>
-                <li>Development and QA received clearer product logic, edge cases, and acceptance criteria.</li>
-              </ul>
-            </div>
+            <ul class="outcome-list">
+              <li>The workflow became clearer for users working with high-risk spatial data import.</li>
+              <li>Support requests related to this workflow decreased by 20% after the changes were released.</li>
+              <li>Development and QA received clearer product logic, edge cases, and acceptance criteria.</li>
+            </ul>
           </div>
         </article>
 
