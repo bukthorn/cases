@@ -715,10 +715,7 @@
     }
 
     .outcome {
-      display: grid;
-      grid-template-columns: 0.85fr 1.15fr;
-      gap: 38px;
-      align-items: start;
+      display: block;
       padding: 42px;
       border-radius: 34px;
       background: var(--accent);
@@ -1195,14 +1192,16 @@
           </div>
 
           <div class="case-section">
-            <div class="outcome">
+            <div class="case-section-head full-width">
               <div>
                 <div class="section-kicker">Outcome</div>
-                <h2>Safer import logic and fewer repeated support issues</h2>
+                <h4>Safer import logic and fewer repeated support issues</h4>
               </div>
+            </div>
+
+            <div class="outcome">
               <ul class="outcome-list">
                 <li>The workflow became clearer for users working with high-risk spatial data import.</li>
-                <li>Users received better guidance before making configuration choices that could affect downstream analysis.</li>
                 <li>Support requests related to this workflow decreased by 20% after the changes were released.</li>
                 <li>Development and QA received clearer product logic, edge cases, and acceptance criteria.</li>
               </ul>
