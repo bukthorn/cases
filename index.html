@@ -514,10 +514,7 @@
     }
 
     .artifact-head {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 28px;
+      display: block;
       margin-bottom: 18px;
     }
 
@@ -531,8 +528,8 @@
     }
 
     .artifact-head p {
-      max-width: 720px;
-      margin: 0;
+      max-width: none;
+      margin: 10px 0 0;
       color: var(--muted);
       font-size: 15px;
       line-height: 1.7;
@@ -556,10 +553,10 @@
     }
 
     .flow {
-      padding: 22px;
-      border: 1px solid var(--line);
-      border-radius: var(--radius-xl);
-      background: var(--bg);
+      padding: 0;
+      border: 0;
+      border-radius: 0;
+      background: transparent;
     }
 
     .flow-label {
@@ -1071,12 +1068,12 @@
 
     <header class="hero">
       <div class="container">
-        <h1><span class="h1-line">Product Manager / Business Analyst</span><span class="h1-line">for complex B2B workflows</span></h1>
+        <h1>Product Manager / Business Analyst</h1>
         <p class="hero-lead">
-          Product Manager / Business Analyst with 4+ years of experience in complex B2B software.
-          I combine discovery, requirements, specifications, prototyping, delivery, and UAT to turn
-          complex expert workflows into clearer product logic and shippable improvements. Delivered
-          9 releases across complex product areas and cross-functional teams.
+          with 4+ years of experience in complex B2B software. I combine discovery, requirements,
+          specifications, prototyping, delivery, and UAT to turn complex expert workflows into
+          clearer product logic and shippable improvements. Delivered 9 releases across complex
+          product areas and cross-functional teams
         </p>
       </div>
     </header>
@@ -1107,7 +1104,7 @@
             </div>
             <div class="meta-item">
               <span>Scope</span>
-              <strong>Workflow analysis, Figma prototype, user stories, UAT</strong>
+              <strong>Workflow analysis, Decision map, Prototyping, User Stories, UAT</strong>
             </div>
             <div class="meta-item">
               <span>Outcome</span>
