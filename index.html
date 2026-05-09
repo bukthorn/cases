@@ -239,14 +239,37 @@
     }
 
     .case-carousel {
-      width: min(var(--max), calc(100% - 80px));
-      margin: 0 auto;
-      display: grid;
-      gap: 40px;
+      display: flex;
+      gap: 28px;
+      overflow-x: auto;
+      overscroll-behavior-x: contain;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+      padding: 0 max(40px, calc((100vw - var(--max)) / 2)) 18px;
+      scrollbar-width: none;
+      cursor: grab;
+    }
+
+    .case-carousel::-webkit-scrollbar {
+      display: none;
+    }
+
+    .case-carousel.dragging {
+      cursor: grabbing;
+      scroll-behavior: auto;
+      scroll-snap-type: none;
+      user-select: none;
+    }
+
+    .case-carousel.dragging .case-slide {
+      pointer-events: none;
     }
 
     .case-slide {
-      width: 100%;
+      flex: 0 0 min(1320px, calc(100vw - 180px));
+      scroll-snap-align: start;
+      scroll-margin-left: max(40px, calc((100vw - var(--max)) / 2));
     }
 
     .case-card-wip {
@@ -288,6 +311,13 @@
       border: 1px dashed #cbd5e1;
       border-radius: 22px;
       background: rgba(255, 255, 255, 0.56);
+    }
+
+    .case-scroll-hint {
+      margin-top: 24px;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 650;
     }
 
     .section.white {
@@ -373,7 +403,7 @@
     }
 
     .case-summary {
-      max-width: 1180px;
+      max-width: 840px;
       margin-top: 16px;
       color: var(--muted);
       font-size: 18px;
@@ -714,9 +744,28 @@
       line-height: 1.8;
     }
 
+    .outcome {
+      display: grid;
+      grid-template-columns: 0.85fr 1.15fr;
+      gap: 38px;
+      align-items: start;
+      padding: 42px;
+      border-radius: 34px;
+      background: var(--accent);
+      color: white;
+    }
+
+    .outcome .section-kicker, .outcome .section-text {
+      color: rgba(255, 255, 255, 0.68);
+    }
+
+    .outcome h2 {
+      color: white;
+      font-size: clamp(30px, 4vw, 48px);
+    }
+
     .outcome-list {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
       gap: 14px;
       margin: 0;
       padding: 0;
@@ -724,15 +773,11 @@
     }
 
     .outcome-list li {
-      min-height: auto;
-      padding: 18px 20px;
+      padding: 18px;
       border: 1px solid rgba(255,255,255,0.15);
-      border-radius: 22px;
-      background: var(--accent);
-      color: rgba(255,255,255,0.88);
-      box-shadow: var(--shadow-soft);
-      font-size: 15px;
-      line-height: 1.55;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.07);
+      color: rgba(255,255,255,0.82);
     }
 
 
@@ -759,9 +804,9 @@
 
     .case-section-head h4 {
       margin: 0;
-      font-size: clamp(22px, 2.1vw, 30px);
-      line-height: 1.15;
-      letter-spacing: -0.035em;
+      font-size: clamp(26px, 3.2vw, 42px);
+      line-height: 1.08;
+      letter-spacing: -0.04em;
     }
 
     .case-section-head p {
@@ -772,6 +817,12 @@
 
     .case-section-head.full-width {
       display: block;
+    }
+
+    @media (min-width: 1100px) {
+      .case-section-head.full-width h4 {
+        white-space: nowrap;
+      }
     }
 
     .case-continuation-note {
@@ -866,8 +917,13 @@
 
     @media (max-width: 920px) {
       .case-carousel {
-        width: min(100% - 56px, var(--max));
-        gap: 28px;
+        gap: 18px;
+        padding-inline: 28px;
+      }
+
+      .case-slide {
+        flex-basis: calc(100vw - 84px);
+        scroll-margin-left: 28px;
       }
 
       .case-card-wip {
@@ -887,8 +943,8 @@
       .two-col,
       .section-head,
       .case-section-head,
-      .contact-card,
-      .outcome-list {
+      .outcome,
+      .contact-card {
         grid-template-columns: 1fr;
       }
 
@@ -962,6 +1018,7 @@
       }
 
       .case-card,
+      .outcome,
       .contact-card {
         padding: 24px;
       }
@@ -1001,7 +1058,7 @@
       <div class="container nav-inner">
         <a href="#" class="brand">
           Pavel Antokhin
-          <span>Product / BA Cases</span>
+          <span>Product / BA Case Studies</span>
         </a>
         <div class="nav-links">
           <a href="https://www.linkedin.com/in/pavelantokhin/" target="_blank" rel="noreferrer">LinkedIn</a>
@@ -1013,7 +1070,7 @@
       <div class="container">
         <h1>Product Manager / Business Analyst</h1>
         <p class="hero-lead">
-          with 4+ years of experience in complex B2B software. I combine discovery, requirements,
+          4+ years of experience in complex B2B software. I combine discovery, requirements,
           specifications, prototyping, delivery, and UAT to turn complex expert workflows into
           clearer product logic and shippable improvements. Delivered 9 releases across complex
           product areas and cross-functional teams.
@@ -1022,11 +1079,11 @@
     </header>
 
     <section id="case" class="section cases-section">
-      <div class="case-carousel" aria-label="Portfolio case studies list">
+      <div class="case-carousel" aria-label="Portfolio case studies">
         <article class="case-card case-slide">
           <div class="case-card-top">
             <div>
-              <div class="section-kicker">Case 01</div>
+              <div class="section-kicker">Case study 01</div>
               <h3>Redesigning a Data Import Workflow</h3>
               <p class="case-summary">
                 I redesigned a high-risk import scenario in complex B2B software by analyzing recurring user mistakes,
@@ -1036,6 +1093,24 @@
             <div class="case-index">01</div>
           </div>
 
+          <div class="case-meta">
+            <div class="meta-item">
+              <span>Role</span>
+              <strong>Product Manager / Business Analyst</strong>
+            </div>
+            <div class="meta-item">
+              <span>Users</span>
+              <strong>Expert users working with technical project data</strong>
+            </div>
+            <div class="meta-item">
+              <span>Scope</span>
+              <strong>Workflow analysis, Figma prototype, user stories, UAT</strong>
+            </div>
+            <div class="meta-item">
+              <span>Outcome</span>
+              <strong>Support requests related to this workflow decreased by 20%</strong>
+            </div>
+          </div>
 
           <div class="case-section">
             <div class="two-col">
@@ -1153,51 +1228,41 @@
                 </div>
               </div>
             </div>
-          </div>
 
-          <div class="artifact-block">
-            <div class="artifact-head">
-              <h5>Decision map for validation logic</h5>
+            <div class="artifact-block">
+              <div class="artifact-head">
+                <h5>Decision map for validation logic</h5>
                 <p>Maps how coordinate data, elevation values, and reference-mode choices should be interpreted during import. The diagram helped define when the system should calculate values automatically, when it should warn users about inconsistent data, and which configurations should require additional validation before import completion.</p>
               </div>
               <div class="artifact-visual">
                 <img src="assets/decision-map.svg" alt="Decision map showing validation logic for coordinate, elevation, and reference-mode data during import" />
               </div>
             </div>
-
-            <div class="artifact-block">
-              <div class="artifact-head">
-                <h5>Problem-to-solution roadmap</h5>
-                <p>Shows how recurring import problems were decomposed into a set of product improvements. The roadmap connects specific workflow issues with planned changes and expected outcomes, helping align import, validation, data handling, and downstream analysis improvements into one coherent delivery plan.</p>
-              </div>
-              <div class="artifact-visual">
-                <img src="assets/problem-to-solution-roadmap.svg" alt="Problem-to-solution roadmap showing how recurring import issues were decomposed into product improvements and expected outcomes" />
-              </div>
-            </div>
           </div>
 
           <div class="case-section">
-            <div class="case-section-head full-width">
+            <div class="outcome">
               <div>
                 <div class="section-kicker">Outcome</div>
-                <h4>Safer import logic and fewer repeated support issues</h4>
+                <h2>Safer import logic and fewer repeated support issues</h2>
               </div>
+              <ul class="outcome-list">
+                <li>The workflow became clearer for users working with high-risk spatial data import.</li>
+                <li>Users received better guidance before making configuration choices that could affect downstream analysis.</li>
+                <li>Support requests related to this workflow decreased by 20% after the changes were released.</li>
+                <li>Development and QA received clearer product logic, edge cases, and acceptance criteria.</li>
+              </ul>
             </div>
-            <ul class="outcome-list">
-              <li>The workflow became clearer for users working with high-risk spatial data import.</li>
-              <li>Support requests related to this workflow decreased by 20% after the changes were released.</li>
-              <li>Development and QA received clearer product logic, edge cases, and acceptance criteria.</li>
-            </ul>
           </div>
         </article>
 
-        <article class="case-card case-slide case-card-wip" aria-label="Case 02 work in progress">
+        <article class="case-card case-slide case-card-wip" aria-label="Case study 02 work in progress">
           <div class="case-card-top">
             <div class="wip-content">
-              <div class="section-kicker">Case 02</div>
+              <div class="section-kicker">Case study 02</div>
               <h3>Work in progress</h3>
               <p class="case-summary">
-                Sorry, this block is under construction
+                The second case study will be added here. It will follow the same structure: context, problem, analysis, artifacts, and outcome.
               </p>
               <div class="wip-label">Coming soon</div>
             </div>
@@ -1210,6 +1275,8 @@
             <div class="wip-placeholder"></div>
             <div class="wip-placeholder"></div>
           </div>
+
+          <p class="case-scroll-hint">Drag or swipe horizontally to move between case studies.</p>
         </article>
       </div>
     </section>
@@ -1222,5 +1289,67 @@
     </footer>
   </div>
 
+<script>
+  const caseCarousel = document.querySelector('.case-carousel');
+
+  if (caseCarousel) {
+    let isDragging = false;
+    let startX = 0;
+    let startScrollLeft = 0;
+
+    const getSlideTargets = () => {
+      const carouselStyles = window.getComputedStyle(caseCarousel);
+      const leftPadding = parseFloat(carouselStyles.paddingLeft) || 0;
+      return [...caseCarousel.querySelectorAll('.case-slide')].map((slide) => slide.offsetLeft - leftPadding);
+    };
+
+    const snapToClosestSlide = () => {
+      const targets = getSlideTargets();
+      const current = caseCarousel.scrollLeft;
+      const closest = targets.reduce((nearest, target) =>
+        Math.abs(target - current) < Math.abs(nearest - current) ? target : nearest
+      , targets[0] || 0);
+
+      caseCarousel.scrollTo({ left: closest, behavior: 'smooth' });
+    };
+
+    caseCarousel.addEventListener('pointerdown', (event) => {
+      if (event.pointerType === 'mouse' && event.button !== 0) return;
+
+      isDragging = true;
+      startX = event.clientX;
+      startScrollLeft = caseCarousel.scrollLeft;
+      caseCarousel.classList.add('dragging');
+      caseCarousel.setPointerCapture(event.pointerId);
+    });
+
+    caseCarousel.addEventListener('pointermove', (event) => {
+      if (!isDragging) return;
+
+      const distance = event.clientX - startX;
+      caseCarousel.scrollLeft = startScrollLeft - distance;
+      event.preventDefault();
+    });
+
+    const stopDragging = (event) => {
+      if (!isDragging) return;
+
+      isDragging = false;
+      caseCarousel.classList.remove('dragging');
+
+      if (caseCarousel.hasPointerCapture(event.pointerId)) {
+        caseCarousel.releasePointerCapture(event.pointerId);
+      }
+
+      snapToClosestSlide();
+    };
+
+    caseCarousel.addEventListener('pointerup', stopDragging);
+    caseCarousel.addEventListener('pointercancel', stopDragging);
+    caseCarousel.addEventListener('mouseleave', (event) => {
+      if (isDragging && event.pointerId !== undefined) stopDragging(event);
+    });
+  }
+</script>
 </body>
 </html>
