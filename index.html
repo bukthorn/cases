@@ -239,37 +239,14 @@
     }
 
     .case-carousel {
-      display: flex;
-      gap: 28px;
-      overflow-x: auto;
-      overscroll-behavior-x: contain;
-      scroll-snap-type: x mandatory;
-      scroll-behavior: smooth;
-      -webkit-overflow-scrolling: touch;
-      padding: 0 max(40px, calc((100vw - var(--max)) / 2)) 18px;
-      scrollbar-width: none;
-      cursor: grab;
-    }
-
-    .case-carousel::-webkit-scrollbar {
-      display: none;
-    }
-
-    .case-carousel.dragging {
-      cursor: grabbing;
-      scroll-behavior: auto;
-      scroll-snap-type: none;
-      user-select: none;
-    }
-
-    .case-carousel.dragging .case-slide {
-      pointer-events: none;
+      width: min(var(--max), calc(100% - 80px));
+      margin: 0 auto;
+      display: grid;
+      gap: 40px;
     }
 
     .case-slide {
-      flex: 0 0 min(1320px, calc(100vw - 180px));
-      scroll-snap-align: start;
-      scroll-margin-left: max(40px, calc((100vw - var(--max)) / 2));
+      width: 100%;
     }
 
     .case-card-wip {
@@ -311,13 +288,6 @@
       border: 1px dashed #cbd5e1;
       border-radius: 22px;
       background: rgba(255, 255, 255, 0.56);
-    }
-
-    .case-scroll-hint {
-      margin-top: 24px;
-      color: var(--muted);
-      font-size: 14px;
-      font-weight: 650;
     }
 
     .section.white {
@@ -761,7 +731,9 @@
 
     .outcome h2 {
       color: white;
-      font-size: clamp(30px, 4vw, 48px);
+      font-size: clamp(24px, 2.2vw, 30px);
+      line-height: 1.16;
+      letter-spacing: -0.035em;
     }
 
     .outcome-list {
@@ -804,9 +776,9 @@
 
     .case-section-head h4 {
       margin: 0;
-      font-size: clamp(26px, 3.2vw, 42px);
-      line-height: 1.08;
-      letter-spacing: -0.04em;
+      font-size: clamp(22px, 2.1vw, 30px);
+      line-height: 1.15;
+      letter-spacing: -0.035em;
     }
 
     .case-section-head p {
@@ -817,12 +789,6 @@
 
     .case-section-head.full-width {
       display: block;
-    }
-
-    @media (min-width: 1100px) {
-      .case-section-head.full-width h4 {
-        white-space: nowrap;
-      }
     }
 
     .case-continuation-note {
@@ -917,13 +883,8 @@
 
     @media (max-width: 920px) {
       .case-carousel {
-        gap: 18px;
-        padding-inline: 28px;
-      }
-
-      .case-slide {
-        flex-basis: calc(100vw - 84px);
-        scroll-margin-left: 28px;
+        width: min(100% - 56px, var(--max));
+        gap: 28px;
       }
 
       .case-card-wip {
@@ -1079,7 +1040,7 @@
     </header>
 
     <section id="case" class="section cases-section">
-      <div class="case-carousel" aria-label="Portfolio case studies">
+      <div class="case-carousel" aria-label="Portfolio case studies list">
         <article class="case-card case-slide">
           <div class="case-card-top">
             <div>
@@ -1104,7 +1065,7 @@
             </div>
             <div class="meta-item">
               <span>Scope</span>
-              <strong>Workflow analysis, Decision map, Prototypes, User Stories, UAT</strong>
+              <strong>Workflow analysis, Desicion map, Prototypes, User Stories, UAT</strong>
             </div>
             <div class="meta-item">
               <span>Outcome</span>
@@ -1243,7 +1204,7 @@
             <div class="artifact-block">
               <div class="artifact-head">
                 <h5>Problem-to-solution roadmap</h5>
-                <p>Shows how recurring import problems were decomposed into a set of user stories. The roadmap connects specific workflow issues with planned changes and expected outcomes, helping align import, validation, data handling, and downstream analysis improvements into one coherent delivery plan.</p>
+                <p>Shows how recurring import problems were decomposed into a set of product improvements. The roadmap connects specific workflow issues with planned changes and expected outcomes, helping align import, validation, data handling, and downstream analysis improvements into one coherent delivery plan.</p>
               </div>
               <div class="artifact-visual">
                 <img src="assets/problem-to-solution-roadmap.svg" alt="Problem-to-solution roadmap showing how recurring import issues were decomposed into product improvements and expected outcomes" />
@@ -1273,7 +1234,7 @@
               <div class="section-kicker">Case study 02</div>
               <h3>Work in progress</h3>
               <p class="case-summary">
-                Sorry, this block is currently under construction
+                The second case study will be added here. It will follow the same structure: context, problem, analysis, artifacts, and outcome.
               </p>
               <div class="wip-label">Coming soon</div>
             </div>
@@ -1286,8 +1247,6 @@
             <div class="wip-placeholder"></div>
             <div class="wip-placeholder"></div>
           </div>
-
-          <p class="case-scroll-hint">Drag or swipe horizontally to move between case studies.</p>
         </article>
       </div>
     </section>
@@ -1300,67 +1259,5 @@
     </footer>
   </div>
 
-<script>
-  const caseCarousel = document.querySelector('.case-carousel');
-
-  if (caseCarousel) {
-    let isDragging = false;
-    let startX = 0;
-    let startScrollLeft = 0;
-
-    const getSlideTargets = () => {
-      const carouselStyles = window.getComputedStyle(caseCarousel);
-      const leftPadding = parseFloat(carouselStyles.paddingLeft) || 0;
-      return [...caseCarousel.querySelectorAll('.case-slide')].map((slide) => slide.offsetLeft - leftPadding);
-    };
-
-    const snapToClosestSlide = () => {
-      const targets = getSlideTargets();
-      const current = caseCarousel.scrollLeft;
-      const closest = targets.reduce((nearest, target) =>
-        Math.abs(target - current) < Math.abs(nearest - current) ? target : nearest
-      , targets[0] || 0);
-
-      caseCarousel.scrollTo({ left: closest, behavior: 'smooth' });
-    };
-
-    caseCarousel.addEventListener('pointerdown', (event) => {
-      if (event.pointerType === 'mouse' && event.button !== 0) return;
-
-      isDragging = true;
-      startX = event.clientX;
-      startScrollLeft = caseCarousel.scrollLeft;
-      caseCarousel.classList.add('dragging');
-      caseCarousel.setPointerCapture(event.pointerId);
-    });
-
-    caseCarousel.addEventListener('pointermove', (event) => {
-      if (!isDragging) return;
-
-      const distance = event.clientX - startX;
-      caseCarousel.scrollLeft = startScrollLeft - distance;
-      event.preventDefault();
-    });
-
-    const stopDragging = (event) => {
-      if (!isDragging) return;
-
-      isDragging = false;
-      caseCarousel.classList.remove('dragging');
-
-      if (caseCarousel.hasPointerCapture(event.pointerId)) {
-        caseCarousel.releasePointerCapture(event.pointerId);
-      }
-
-      snapToClosestSlide();
-    };
-
-    caseCarousel.addEventListener('pointerup', stopDragging);
-    caseCarousel.addEventListener('pointercancel', stopDragging);
-    caseCarousel.addEventListener('mouseleave', (event) => {
-      if (isDragging && event.pointerId !== undefined) stopDragging(event);
-    });
-  }
-</script>
 </body>
 </html>
