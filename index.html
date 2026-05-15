@@ -254,47 +254,6 @@
       width: 100%;
     }
 
-    .case-card-wip {
-      display: flex;
-      min-height: 720px;
-      flex-direction: column;
-      justify-content: space-between;
-      background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
-    }
-
-    .wip-content {
-      max-width: 760px;
-    }
-
-    .wip-label {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      margin-top: 24px;
-      padding: 10px 14px;
-      border-radius: 999px;
-      background: var(--surface-soft);
-      color: var(--muted);
-      font-size: 13px;
-      font-weight: 800;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    .wip-placeholder-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 16px;
-      margin-top: 48px;
-    }
-
-    .wip-placeholder {
-      min-height: 120px;
-      border: 1px dashed #cbd5e1;
-      border-radius: 22px;
-      background: rgba(255, 255, 255, 0.56);
-    }
-
     .section.white {
       border-top: 1px solid var(--line);
       border-bottom: 1px solid var(--line);
@@ -479,7 +438,6 @@
       margin-top: 0;
     }
 
-
     .artifact-block {
       margin-top: 26px;
       padding: 22px;
@@ -525,6 +483,24 @@
       width: 100%;
       min-width: 980px;
       height: auto;
+    }
+
+    .artifact-placeholder {
+      min-height: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px;
+      border: 1px dashed #aab6c8;
+      border-radius: 22px;
+      background:
+        linear-gradient(135deg, rgba(255,255,255,0.84), rgba(238,242,247,0.8)),
+        repeating-linear-gradient(45deg, transparent 0, transparent 12px, rgba(15, 23, 42, 0.035) 12px, rgba(15, 23, 42, 0.035) 24px);
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 600;
+      text-align: center;
+      letter-spacing: 0.01em;
     }
 
     .flow {
@@ -740,8 +716,6 @@
       line-height: 1.55;
     }
 
-
-
     .case-section {
       padding-top: 42px;
       margin-top: 42px;
@@ -869,18 +843,15 @@
       box-shadow: var(--shadow);
     }
 
+    /* Case 02 competitive table has different column labels on mobile */
+    .table-comp .table-row:not(.header) .table-cell:nth-child(1)::before { content: "What I compared"; }
+    .table-comp .table-row:not(.header) .table-cell:nth-child(2)::before { content: "What I found"; }
+    .table-comp .table-row:not(.header) .table-cell:nth-child(3)::before { content: "What it led to"; }
+
     @media (max-width: 920px) {
       .case-carousel {
         width: min(100% - 56px, var(--max));
         gap: 28px;
-      }
-
-      .case-card-wip {
-        min-height: 560px;
-      }
-
-      .wip-placeholder-grid {
-        grid-template-columns: 1fr;
       }
 
       .nav-links {
@@ -929,6 +900,7 @@
         text-transform: uppercase;
       }
 
+      /* Case 01 table labels */
       .table-row:not(.header) .table-cell:nth-child(1)::before { content: "Signal"; }
       .table-row:not(.header) .table-cell:nth-child(2)::before { content: "Insight"; }
       .table-row:not(.header) .table-cell:nth-child(3)::before { content: "Product decision"; }
@@ -1028,6 +1000,8 @@
 
     <section id="case" class="section cases-section">
       <div class="case-carousel" aria-label="Portfolio case studies list">
+
+        <!-- CASE 01 -->
         <article class="case-card case-slide">
           <div class="case-card-top">
             <div>
@@ -1040,7 +1014,6 @@
             </div>
             <div class="case-index">01</div>
           </div>
-
 
           <div class="case-section">
             <div class="two-col">
@@ -1063,7 +1036,6 @@
                 </ul>
               </div>
             </div>
-
           </div>
 
           <div class="case-section">
@@ -1112,57 +1084,57 @@
                 <p>Shows the difference between the original import flow, where problems were discovered after analysis, and the redesigned flow with an explicit validation step before import completion.</p>
               </div>
               <div class="flow-wrap">
-              <div class="flow">
-                <div class="flow-label">
-                  <span>Before</span>
-                  <span>Original workflow</span>
-                </div>
-                <div class="coded-workflow" aria-label="Original import workflow with late error discovery">
-                  <div class="workflow-track original">
-                    <div class="workflow-node">Open import module</div>
-                    <div class="workflow-arrow">→</div>
-                    <div class="workflow-node">Select data</div>
-                    <div class="workflow-arrow">→</div>
-                    <div class="workflow-node">Configure import template</div>
-                    <div class="workflow-arrow">→</div>
-                    <div class="workflow-node">Import</div>
-                    <div class="workflow-arrow">→</div>
-                    <div class="workflow-node">Analyze loaded data</div>
-                    <div class="workflow-arrow">→</div>
-                    <div class="workflow-node warning">Data loaded incorrectly</div>
+                <div class="flow">
+                  <div class="flow-label">
+                    <span>Before</span>
+                    <span>Original workflow</span>
+                  </div>
+                  <div class="coded-workflow" aria-label="Original import workflow with late error discovery">
+                    <div class="workflow-track original">
+                      <div class="workflow-node">Open import module</div>
+                      <div class="workflow-arrow">→</div>
+                      <div class="workflow-node">Select data</div>
+                      <div class="workflow-arrow">→</div>
+                      <div class="workflow-node">Configure import template</div>
+                      <div class="workflow-arrow">→</div>
+                      <div class="workflow-node">Import</div>
+                      <div class="workflow-arrow">→</div>
+                      <div class="workflow-node">Analyze loaded data</div>
+                      <div class="workflow-arrow">→</div>
+                      <div class="workflow-node warning">Data loaded incorrectly</div>
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              <div class="flow">
-                <div class="flow-label">
-                  <span>After</span>
-                  <span>Redesigned workflow logic</span>
-                </div>
-                <div class="coded-workflow" aria-label="Redesigned import workflow with validation before import">
-                  <div class="workflow-track redesigned">
-                    <div class="workflow-node">Open import module</div>
-                    <div class="workflow-arrow">→</div>
-                    <div class="workflow-node">Select data</div>
-                    <div class="workflow-arrow">→</div>
-                    <div class="workflow-node">Configure import template</div>
-                    <div class="workflow-arrow">→</div>
-                    <div class="workflow-node">Validation check</div>
-                    <div class="workflow-arrow">→</div>
-                    <div class="workflow-node">Import</div>
-                    <div class="workflow-arrow">→</div>
-                    <div class="workflow-node">Analyze loaded data</div>
-                    <div class="workflow-arrow">→</div>
-                    <div class="workflow-node success">Continue with safer data</div>
+                <div class="flow">
+                  <div class="flow-label">
+                    <span>After</span>
+                    <span>Redesigned workflow logic</span>
+                  </div>
+                  <div class="coded-workflow" aria-label="Redesigned import workflow with validation before import">
+                    <div class="workflow-track redesigned">
+                      <div class="workflow-node">Open import module</div>
+                      <div class="workflow-arrow">→</div>
+                      <div class="workflow-node">Select data</div>
+                      <div class="workflow-arrow">→</div>
+                      <div class="workflow-node">Configure import template</div>
+                      <div class="workflow-arrow">→</div>
+                      <div class="workflow-node">Validation check</div>
+                      <div class="workflow-arrow">→</div>
+                      <div class="workflow-node">Import</div>
+                      <div class="workflow-arrow">→</div>
+                      <div class="workflow-node">Analyze loaded data</div>
+                      <div class="workflow-arrow">→</div>
+                      <div class="workflow-node success">Continue with safer data</div>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
 
-          <div class="artifact-block">
-            <div class="artifact-head">
-              <h5>Decision map for validation logic</h5>
+            <div class="artifact-block">
+              <div class="artifact-head">
+                <h5>Decision map for validation logic</h5>
                 <p>Maps how coordinate data, elevation values, and reference-mode choices should be interpreted during import. The diagram helped define when the system should calculate values automatically, when it should warn users about inconsistent data, and which configurations should require additional validation before import completion.</p>
               </div>
               <div class="artifact-visual">
@@ -1196,26 +1168,145 @@
           </div>
         </article>
 
-        <article class="case-card case-slide case-card-wip" aria-label="Case 02 work in progress">
+        <!-- CASE 02 -->
+        <article class="case-card case-slide">
           <div class="case-card-top">
-            <div class="wip-content">
+            <div>
               <div class="section-kicker">Case 02</div>
-              <h3>Work in progress</h3>
+              <h3>Launching a New Data Analysis Algorithm from Scratch</h3>
               <p class="case-summary">
-                Sorry, this block is under construction
+                I led the full product cycle for a new algorithm — from a client request and competitive analysis through UX design and release — delivering a capability that allowed users to extract new insights from existing data using an approach not previously available in the product.
               </p>
-              <div class="wip-label">Coming soon</div>
             </div>
             <div class="case-index">02</div>
           </div>
 
-          <div class="wip-placeholder-grid" aria-hidden="true">
-            <div class="wip-placeholder"></div>
-            <div class="wip-placeholder"></div>
-            <div class="wip-placeholder"></div>
-            <div class="wip-placeholder"></div>
+          <div class="case-section">
+            <div class="two-col">
+              <div class="text-block">
+                <div class="mini-title">Context</div>
+                <p>
+                  The product is a complex B2B platform for loading, analyzing, and interpreting large volumes of structured data. The platform's users are domain experts who work with data daily and rely on the product as their primary analytical tool.
+                </p>
+                <p>
+                  A key client requested a specific analytical capability available in competing products — one that allows users to extract insights from data that are not visible through standard analysis. The request came through the sales and business development team and carried potential commercial significance.
+                </p>
+                <p>
+                  The capability did not exist in the product. There was no prior specification, no defined scope, and no established UX pattern to follow.
+                </p>
+              </div>
+              <div>
+                <div class="mini-title">Core problem</div>
+                <ul class="problem-list">
+                  <li>The product had no equivalent of the requested algorithm, and it was unclear what the right scope and feature boundaries should be.</li>
+                  <li>Competing products implemented the algorithm differently — with varying input requirements, calculation settings, and output formats — making it non-obvious which approach to follow.</li>
+                  <li>An early internal version of the algorithm exposed too many configuration parameters, which users could not navigate without confusion.</li>
+                  <li>Porting the calculation logic to the product's technical stack introduced implementation complexity that required ongoing coordination when the technical lead was unavailable.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="case-section">
+            <div class="case-section-head full-width">
+              <div>
+                <div class="section-kicker">Analysis</div>
+                <h4>Competitive analysis: defining the right scope</h4>
+              </div>
+            </div>
+            <p class="case-continuation-note">
+              Before designing anything, I needed to understand how this algorithm existed in the market — what inputs it required, what settings it exposed, how fast it calculated, and what users received as output. I reviewed competing products directly where access was available, and studied technical documentation where it was not.
+            </p>
+
+            <div class="table table-comp" style="margin-top: 26px;">
+              <div class="table-row header">
+                <div class="table-cell">What I compared</div>
+                <div class="table-cell">What I found</div>
+                <div class="table-cell">What it led to</div>
+              </div>
+              <div class="table-row">
+                <div class="table-cell">Input requirements across products</div>
+                <div class="table-cell">Products differed in what data types and formats were accepted as input</div>
+                <div class="table-cell">Defined clear input requirements for our implementation</div>
+              </div>
+              <div class="table-row">
+                <div class="table-cell">Available calculation settings</div>
+                <div class="table-cell">Some products exposed many parameters; others had almost none</div>
+                <div class="table-cell">Established a baseline of settings that made sense to expose</div>
+              </div>
+              <div class="table-row">
+                <div class="table-cell">Output formats</div>
+                <div class="table-cell">Outputs varied significantly in how results were presented to users</div>
+                <div class="table-cell">Defined output format based on what was most interpretable</div>
+              </div>
+              <div class="table-row">
+                <div class="table-cell">Calculation speed</div>
+                <div class="table-cell">Performance varied considerably across products</div>
+                <div class="table-cell">Set expectations with the team and flagged speed as a constraint</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="case-section">
+            <div class="case-section-head full-width">
+              <div>
+                <div class="section-kicker">Analysis</div>
+                <h4>Simplifying the interface: from too many settings to a workable UX</h4>
+              </div>
+            </div>
+            <p class="case-continuation-note">
+              To decide what to keep, hide, or automate, I ran the calculations myself to see which parameters meaningfully changed the output, compared our settings against competitors, and tested the interface with users to identify what caused confusion. This reduced the visible configuration to a set users could work with confidently.
+            </p>
+          </div>
+
+          <div class="case-section workflow-artifacts">
+            <div class="case-section-head full-width">
+              <div>
+                <div class="section-kicker">Artifacts</div>
+                <h4>Key delivery artifacts</h4>
+              </div>
+            </div>
+
+            <div class="artifact-block">
+              <div class="artifact-head">
+                <h5>Competitive analysis table</h5>
+                <p>Covers input requirements, calculation settings, output formats, and performance across competing products. Served as the foundation for scoping decisions and helped align the team on what to build and what to defer.</p>
+              </div>
+              <div class="artifact-placeholder">Image coming soon</div>
+            </div>
+
+            <div class="artifact-block">
+              <div class="artifact-head">
+                <h5>Parameter map</h5>
+                <p>Distinguishes required settings, optional settings, and parameters suitable for automation or hiding. Built from a combination of hands-on calculation, competitive benchmarking, and user testing — showing the reasoning behind each decision.</p>
+              </div>
+              <div class="artifact-placeholder">Image coming soon</div>
+            </div>
+
+            <div class="artifact-block">
+              <div class="artifact-head">
+                <h5>UX flow and acceptance criteria</h5>
+                <p>Covers the full user journey: launching the algorithm, configuring inputs, running the calculation, and interpreting results. Accompanied by edge case documentation and acceptance criteria used by development and QA during implementation.</p>
+              </div>
+              <div class="artifact-placeholder">Image coming soon</div>
+            </div>
+          </div>
+
+          <div class="case-section">
+            <div class="case-section-head full-width">
+              <div>
+                <div class="section-kicker">Outcome</div>
+                <h4>A new analytical capability delivered from zero</h4>
+              </div>
+            </div>
+            <ul class="outcome-list">
+              <li>The algorithm was designed, implemented, and released — delivering a capability that had not previously existed in the product.</li>
+              <li>The interface reached a level of clarity where users could configure and run the algorithm without additional guidance.</li>
+              <li>The release fulfilled the original client request that had initiated the work.</li>
+            </ul>
           </div>
         </article>
+
       </div>
     </section>
 
