@@ -843,11 +843,6 @@
       box-shadow: var(--shadow);
     }
 
-    /* Case 02 competitive table has different column labels on mobile */
-    .table-comp .table-row:not(.header) .table-cell:nth-child(1)::before { content: "What I compared"; }
-    .table-comp .table-row:not(.header) .table-cell:nth-child(2)::before { content: "What I found"; }
-    .table-comp .table-row:not(.header) .table-cell:nth-child(3)::before { content: "What it led to"; }
-
     @media (max-width: 920px) {
       .case-carousel {
         width: min(100% - 56px, var(--max));
@@ -901,9 +896,14 @@
       }
 
       /* Case 01 table labels */
-      .table-row:not(.header) .table-cell:nth-child(1)::before { content: "Signal"; }
-      .table-row:not(.header) .table-cell:nth-child(2)::before { content: "Insight"; }
-      .table-row:not(.header) .table-cell:nth-child(3)::before { content: "Product decision"; }
+      .table:not(.table-comp) .table-row:not(.header) .table-cell:nth-child(1)::before { content: "Signal"; }
+      .table:not(.table-comp) .table-row:not(.header) .table-cell:nth-child(2)::before { content: "Insight"; }
+      .table:not(.table-comp) .table-row:not(.header) .table-cell:nth-child(3)::before { content: "Product decision"; }
+
+      /* Case 02 competitive table labels */
+      .table-comp .table-row:not(.header) .table-cell:nth-child(1)::before { content: "What I compared"; }
+      .table-comp .table-row:not(.header) .table-cell:nth-child(2)::before { content: "What I found"; }
+      .table-comp .table-row:not(.header) .table-cell:nth-child(3)::before { content: "What it led to"; }
     }
 
     @media (max-width: 720px) {
@@ -1214,7 +1214,7 @@
                 <h4>Competitive analysis: defining the right scope</h4>
               </div>
             </div>
-            <p class="case-continuation-note">
+            <p style="color: var(--muted); font-size: 16px; line-height: 1.8; margin-top: 0;">
               Before designing anything, I needed to understand how this algorithm existed in the market — what inputs it required, what settings it exposed, how fast it calculated, and what users received as output. I reviewed competing products directly where access was available, and studied technical documentation where it was not.
             </p>
 
@@ -1247,14 +1247,9 @@
             </div>
           </div>
 
-          <div class="case-section">
-            <div class="case-section-head full-width">
-              <div>
-                <div class="section-kicker">Analysis</div>
-                <h4>Simplifying the interface: from too many settings to a workable UX</h4>
-              </div>
-            </div>
-            <p class="case-continuation-note">
+          <div style="margin-top: 32px;">
+            <h4 style="margin: 0 0 16px; font-size: clamp(22px, 2.1vw, 30px); line-height: 1.15; letter-spacing: -0.035em;">Simplifying the interface: from too many settings to a workable UX</h4>
+            <p style="color: var(--muted); font-size: 16px; line-height: 1.8; margin-top: 0;">
               To decide what to keep, hide, or automate, I ran the calculations myself to see which parameters meaningfully changed the output, compared our settings against competitors, and tested the interface with users to identify what caused confusion. This reduced the visible configuration to a set users could work with confidently.
             </p>
           </div>
