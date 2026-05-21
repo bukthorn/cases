@@ -624,6 +624,86 @@
       color: var(--muted);
     }
 
+
+    .table-benchmark {
+      overflow-x: auto;
+      scrollbar-width: thin;
+    }
+
+    .table-benchmark .table-row {
+      min-width: 1280px;
+      grid-template-columns: 130px 120px 160px 160px minmax(355px, 1fr) minmax(355px, 1fr);
+    }
+
+    .table-benchmark .table-cell {
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    .table-benchmark .table-cell:first-child {
+      color: var(--text);
+      font-weight: 800;
+    }
+
+    .table-parameter {
+      overflow-x: auto;
+      scrollbar-width: thin;
+    }
+
+    .table-parameter .table-row {
+      min-width: 1040px;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .table-parameter .table-cell {
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    .table-parameter .table-row:not(.header) .table-cell:first-child {
+      color: var(--text);
+      font-weight: 750;
+    }
+
+    .table-parameter .table-cell:nth-child(n+2) {
+      text-align: center;
+    }
+
+    .table-parameter .table-row.header .table-cell {
+      white-space: nowrap;
+    }
+
+    .artifact-columns {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 26px;
+      margin-top: 26px;
+      align-items: start;
+    }
+
+    .artifact-columns .artifact-block {
+      margin-top: 0;
+    }
+
+    .table-parameter .table-row.low-score {
+      background: #fff1f2;
+    }
+
+    .table-parameter .table-row.low-score .table-cell:first-child,
+    .table-parameter .table-row.low-score .table-cell:last-child {
+      color: #9f1239;
+      font-weight: 800;
+    }
+
+    .table-list {
+      margin: 0;
+      padding-left: 18px;
+    }
+
+    .table-list li + li {
+      margin-top: 6px;
+    }
+
     .solution-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -864,7 +944,8 @@
       }
 
       .solution-grid,
-      .artifact-grid {
+      .artifact-grid,
+      .artifact-columns {
         grid-template-columns: 1fr;
       }
 
@@ -896,14 +977,42 @@
       }
 
       /* Case 01 table labels */
-      .table:not(.table-comp) .table-row:not(.header) .table-cell:nth-child(1)::before { content: "Signal"; }
-      .table:not(.table-comp) .table-row:not(.header) .table-cell:nth-child(2)::before { content: "Insight"; }
-      .table:not(.table-comp) .table-row:not(.header) .table-cell:nth-child(3)::before { content: "Product decision"; }
+      .table:not(.table-comp):not(.table-benchmark):not(.table-parameter) .table-row:not(.header) .table-cell:nth-child(1)::before { content: "Signal"; }
+      .table:not(.table-comp):not(.table-benchmark):not(.table-parameter) .table-row:not(.header) .table-cell:nth-child(2)::before { content: "Insight"; }
+      .table:not(.table-comp):not(.table-benchmark):not(.table-parameter) .table-row:not(.header) .table-cell:nth-child(3)::before { content: "Product decision"; }
 
       /* Case 02 competitive table labels */
       .table-comp .table-row:not(.header) .table-cell:nth-child(1)::before { content: "What I compared"; }
       .table-comp .table-row:not(.header) .table-cell:nth-child(2)::before { content: "What I found"; }
       .table-comp .table-row:not(.header) .table-cell:nth-child(3)::before { content: "What it led to"; }
+
+      /* Case 02 benchmark table labels */
+      .table-benchmark .table-row:not(.header) .table-cell:nth-child(1)::before { content: "Software"; }
+      .table-benchmark .table-row:not(.header) .table-cell:nth-child(2)::before { content: "Workflow"; }
+      .table-benchmark .table-row:not(.header) .table-cell:nth-child(3)::before { content: "Settings"; }
+      .table-benchmark .table-row:not(.header) .table-cell:nth-child(4)::before { content: "Performance"; }
+      .table-benchmark .table-row:not(.header) .table-cell:nth-child(5)::before { content: "Pros"; }
+      .table-benchmark .table-row:not(.header) .table-cell:nth-child(6)::before { content: "Cons"; }
+
+      /* Case 02 parameter table labels */
+      .table-parameter .table-row:not(.header) .table-cell:nth-child(1)::before { content: "Parameter"; }
+      .table-parameter .table-row:not(.header) .table-cell:nth-child(2)::before { content: "Impact"; }
+      .table-parameter .table-row:not(.header) .table-cell:nth-child(3)::before { content: "Predictability"; }
+      .table-parameter .table-row:not(.header) .table-cell:nth-child(4)::before { content: "Score"; }
+
+
+      .table-benchmark .table-row,
+      .table-benchmark .table-row.header,
+      .table-parameter .table-row,
+      .table-parameter .table-row.header {
+        min-width: 0;
+        grid-template-columns: 1fr;
+      }
+
+      .table-parameter .table-cell:nth-child(n+2) {
+        text-align: left;
+      }
+
     }
 
     @media (max-width: 720px) {
@@ -1150,7 +1259,6 @@
               <div class="artifact-visual">
                 <img src="assets/problem-to-solution-roadmap.svg" alt="Problem-to-solution roadmap showing how recurring import issues were decomposed into product improvements and expected outcomes" />
               </div>
-            </div>
           </div>
 
           <div class="case-section">
@@ -1264,7 +1372,114 @@
                 <h5>Competitive analysis table</h5>
                 <p>Covers input requirements, calculation settings, output formats, and performance across competing products. Served as the foundation for scoping decisions and helped align the team on what to build and what to defer.</p>
               </div>
-              <div class="artifact-placeholder">Image coming soon</div>
+              <div class="table table-benchmark" aria-label="Competitive analysis table comparing workflow, settings, performance, pros, and cons across products">
+                <div class="table-row header">
+                  <div class="table-cell">Software</div>
+                  <div class="table-cell">Workflow</div>
+                  <div class="table-cell">Settings</div>
+                  <div class="table-cell">Performance</div>
+                  <div class="table-cell">Pros</div>
+                  <div class="table-cell">Cons</div>
+                </div>
+                <div class="table-row">
+                  <div class="table-cell">Software A</div>
+                  <div class="table-cell">5 steps</div>
+                  <div class="table-cell">7 settings in 3 groups</div>
+                  <div class="table-cell">15–20 minutes</div>
+                  <div class="table-cell">
+                    <ol class="table-list">
+                      <li>Few settings</li>
+                      <li>Tooltips with descriptions of the settings</li>
+                      <li>Result adjustment after calculation</li>
+                    </ol>
+                  </div>
+                  <div class="table-cell">
+                    <ol class="table-list">
+                      <li>Long calculation time</li>
+                      <li>Fast memory cluttering / high memory usage</li>
+                      <li>No option to specify the calculation interval</li>
+                      <li>Data preparation is required</li>
+                    </ol>
+                  </div>
+                </div>
+                <div class="table-row">
+                  <div class="table-cell">Our raw algorithm A</div>
+                  <div class="table-cell">5 steps</div>
+                  <div class="table-cell">18 settings</div>
+                  <div class="table-cell">6 minutes</div>
+                  <div class="table-cell">
+                    <ol class="table-list">
+                      <li>Relatively fast calculation</li>
+                      <li>Significant savings in computer memory</li>
+                    </ol>
+                  </div>
+                  <div class="table-cell">
+                    <ol class="table-list">
+                      <li>Nothing can be adjusted after calculation</li>
+                      <li>Each map has its own palette</li>
+                      <li>Volume preparation is required</li>
+                      <li>Large number of settings</li>
+                    </ol>
+                  </div>
+                </div>
+                <div class="table-row">
+                  <div class="table-cell">Our raw algorithm B</div>
+                  <div class="table-cell">4 steps</div>
+                  <div class="table-cell">19 settings</div>
+                  <div class="table-cell">11 minutes</div>
+                  <div class="table-cell">
+                    <ol class="table-list">
+                      <li>Calculation is still faster than cube calculation in Software A</li>
+                      <li>Significant savings in computer memory</li>
+                      <li>No need to prepare the volume in advance</li>
+                      <li>Iterative process — due to the calculation speed, more parameter combinations can be tested</li>
+                    </ol>
+                  </div>
+                  <div class="table-cell">
+                    <ol class="table-list">
+                      <li>Nothing can be adjusted after calculation</li>
+                      <li>Each map has its own palette</li>
+                      <li>Large number of settings</li>
+                    </ol>
+                  </div>
+                </div>
+                <div class="table-row">
+                  <div class="table-cell">Software B</div>
+                  <div class="table-cell">4 steps</div>
+                  <div class="table-cell">9 settings in 3 groups</div>
+                  <div class="table-cell">1.5 minutes</div>
+                  <div class="table-cell">
+                    <ol class="table-list">
+                      <li>Pre-analysis of calculation parameters</li>
+                      <li>Fast calculation</li>
+                      <li>One output volume</li>
+                    </ol>
+                  </div>
+                  <div class="table-cell">
+                    <ol class="table-list">
+                      <li>Nothing can be adjusted after calculation</li>
+                      <li>The volume is automatically assigned an RGB blending palette</li>
+                    </ol>
+                  </div>
+                </div>
+                <div class="table-row">
+                  <div class="table-cell">Software C</div>
+                  <div class="table-cell">3 steps</div>
+                  <div class="table-cell">6 settings in 1 group</div>
+                  <div class="table-cell">5 minutes</div>
+                  <div class="table-cell">
+                    <ol class="table-list">
+                      <li>Small amount of parameters</li>
+                      <li>Simple workflow</li>
+                    </ol>
+                  </div>
+                  <div class="table-cell">
+                    <ol class="table-list">
+                      <li>Too long for full volume calculations</li>
+                    </ol>
+                  </div>
+                </div>
+              </div>
             </div>
 
             <div class="artifact-block">
@@ -1272,7 +1487,146 @@
                 <h5>Parameter map</h5>
                 <p>Distinguishes required settings, optional settings, and parameters suitable for automation or hiding. Built from a combination of hands-on calculation, competitive benchmarking, and user testing — showing the reasoning behind each decision.</p>
               </div>
-              <div class="artifact-placeholder">Image coming soon</div>
+              <div class="table table-parameter" aria-label="Parameter map showing impact, predictability, and total score for algorithm settings">
+                <div class="table-row header">
+                  <div class="table-cell">Parameter</div>
+                  <div class="table-cell">Impact (0 = low, 1 = high)</div>
+                  <div class="table-cell">Predictability (0 = low, 1 = high)</div>
+                  <div class="table-cell">Score</div>
+                </div>
+                <div class="table-row">
+                  <div class="table-cell">Source section selection</div>
+                  <div class="table-cell">1</div>
+                  <div class="table-cell">1</div>
+                  <div class="table-cell">2</div>
+                </div>
+                <div class="table-row">
+                  <div class="table-cell">Slice calculation method</div>
+                  <div class="table-cell">1</div>
+                  <div class="table-cell">1</div>
+                  <div class="table-cell">2</div>
+                </div>
+                <div class="table-row">
+                  <div class="table-cell">Slice interval / window size</div>
+                  <div class="table-cell">1</div>
+                  <div class="table-cell">1</div>
+                  <div class="table-cell">2</div>
+                </div>
+                <div class="table-row">
+                  <div class="table-cell">Clipping</div>
+                  <div class="table-cell">1</div>
+                  <div class="table-cell">0</div>
+                  <div class="table-cell">1</div>
+                </div>
+                <div class="table-row">
+                  <div class="table-cell">Equalization</div>
+                  <div class="table-cell">1</div>
+                  <div class="table-cell">0</div>
+                  <div class="table-cell">1</div>
+                </div>
+                <div class="table-row">
+                  <div class="table-cell">Edge detection algorithm</div>
+                  <div class="table-cell">1</div>
+                  <div class="table-cell">1</div>
+                  <div class="table-cell">2</div>
+                </div>
+                <div class="table-row">
+                  <div class="table-cell">Edge detection intensity</div>
+                  <div class="table-cell">0</div>
+                  <div class="table-cell">1</div>
+                  <div class="table-cell">1</div>
+                </div>
+                <div class="table-row">
+                  <div class="table-cell">Edge detection threshold</div>
+                  <div class="table-cell">0</div>
+                  <div class="table-cell">1</div>
+                  <div class="table-cell">1</div>
+                </div>
+                <div class="table-row low-score">
+                  <div class="table-cell">Unsharp algorithm selection</div>
+                  <div class="table-cell">0</div>
+                  <div class="table-cell">0</div>
+                  <div class="table-cell">0</div>
+                </div>
+                <div class="table-row low-score">
+                  <div class="table-cell">Impulse length</div>
+                  <div class="table-cell">0</div>
+                  <div class="table-cell">0</div>
+                  <div class="table-cell">0</div>
+                </div>
+                <div class="table-row low-score">
+                  <div class="table-cell">Filter intensity</div>
+                  <div class="table-cell">0</div>
+                  <div class="table-cell">0</div>
+                  <div class="table-cell">0</div>
+                </div>
+                <div class="table-row">
+                  <div class="table-cell">Footprint suppression filter setup</div>
+                  <div class="table-cell">0</div>
+                  <div class="table-cell">1</div>
+                  <div class="table-cell">1</div>
+                </div>
+                <div class="table-row low-score">
+                  <div class="table-cell">Noise suppression filter setup</div>
+                  <div class="table-cell">0</div>
+                  <div class="table-cell">0</div>
+                  <div class="table-cell">0</div>
+                </div>
+                <div class="table-row">
+                  <div class="table-cell">Dynamic range</div>
+                  <div class="table-cell">1</div>
+                  <div class="table-cell">0</div>
+                  <div class="table-cell">1</div>
+                </div>
+                <div class="table-row">
+                  <div class="table-cell">Saturation</div>
+                  <div class="table-cell">1</div>
+                  <div class="table-cell">1</div>
+                  <div class="table-cell">2</div>
+                </div>
+                <div class="table-row">
+                  <div class="table-cell">Brightness</div>
+                  <div class="table-cell">1</div>
+                  <div class="table-cell">1</div>
+                  <div class="table-cell">2</div>
+                </div>
+                <div class="table-row">
+                  <div class="table-cell">Contrast</div>
+                  <div class="table-cell">1</div>
+                  <div class="table-cell">1</div>
+                  <div class="table-cell">2</div>
+                </div>
+                <div class="table-row">
+                  <div class="table-cell">Black color reduction</div>
+                  <div class="table-cell">0</div>
+                  <div class="table-cell">1</div>
+                  <div class="table-cell">1</div>
+                </div>
+                <div class="table-row">
+                  <div class="table-cell">Color balance</div>
+                  <div class="table-cell">0</div>
+                  <div class="table-cell">1</div>
+                  <div class="table-cell">1</div>
+                </div>
+                <div class="table-row">
+                  <div class="table-cell">Polarity inversion</div>
+                  <div class="table-cell">1</div>
+                  <div class="table-cell">1</div>
+                  <div class="table-cell">2</div>
+                </div>
+                <div class="table-row">
+                  <div class="table-cell">Value inversion</div>
+                  <div class="table-cell">1</div>
+                  <div class="table-cell">1</div>
+                  <div class="table-cell">2</div>
+                </div>
+                <div class="table-row">
+                  <div class="table-cell">Palette shift</div>
+                  <div class="table-cell">0</div>
+                  <div class="table-cell">1</div>
+                  <div class="table-cell">1</div>
+                </div>
+              </div>
             </div>
 
             <div class="artifact-block">
@@ -1280,7 +1634,9 @@
                 <h5>UX flow and acceptance criteria</h5>
                 <p>Covers the full user journey: launching the algorithm, configuring inputs, running the calculation, and interpreting results. Accompanied by edge case documentation and acceptance criteria used by development and QA during implementation.</p>
               </div>
-              <div class="artifact-placeholder">Image coming soon</div>
+              <div class="artifact-visual">
+                <img src="assets/ux-flow.svg" alt="UX flow and acceptance criteria diagram showing the user journey, algorithm configuration, calculation flow, and implementation logic" />
+              </div>
             </div>
           </div>
 
